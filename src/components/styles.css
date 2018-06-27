@@ -1,5 +1,7 @@
 .room-view {
     padding: 10px;
-    width: 100px;
-    background-color: teal;
+    width: 200px;
+    border: 1px solid cyan;
+    border-radius: 5px;
+    text-align: center;
 }
