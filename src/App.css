@@ -30,7 +30,7 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  background-color: "red"; 
+  background-color: "red";
   flex: 1;
 }
 
@@ -49,8 +49,8 @@
 .logo-name {
   font-size: 25px;
   font-weight: bolder;
-  color: #4039e3; 
-  font-family: 'Arial'
+  color: #4039e3;
+  font-family: "Arial";
 }
 
 .row-break {
@@ -68,8 +68,8 @@
 .search-text {
   font-size: 14px;
   font-weight: bold;
-  margin-left: 20px;
-  margin-right: 20px;
+  margin-left: 15px;
+  margin-right: 15px;
 }
 
 .available-dates {
@@ -108,8 +108,53 @@
   font-weight: bold;
 }
 
+.filter-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 45px;
+  padding-right: 45px;
+}
+
+.description-lite {
+  color: #8d959f;
+  padding: 10px 0 5px 10px;
+}
+
+.search-result-count {
+  font-size: 20px;
+  font-weight: bold;
+  padding: 0 0 10px 10px;
+}
+
+.filter-btn-container {
+  display: flex;
+  flex-direction: row;
+  padding: 0 0 10px 10px;
+}
+
+.filter-btn {
+  font-size: 13px;
+  border: 1px solid #4039e3;
+  border-radius: 20px;
+  padding: 5px;
+  margin-right: 10px;
+}
+
+.rooms-list-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-top: 20px;
+  padding-left: 45px;
+  padding-right: 45px;
+}
+
+.room {
+}
+
 .App-title {
-    font-size: 1.5em;
+  font-size: 1.5em;
 }
 
 .App-intro {
