@@ -4,10 +4,7 @@ import { authUrl } from "./Constants";
 export const authenticate = () => {
   const authOptions = {
     method: "GET",
-    url: authUrl,
-    headers: {
-      "Allow-Control-Allow-Origin:": " *"
-    }
+    url: authUrl
   };
   return axios(authOptions)
     .then(response => {
