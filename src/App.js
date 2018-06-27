@@ -78,7 +78,7 @@ class App extends Component {
         </div>
         <div className="rooms-list-container">
           {this.state.roomList.map(item => {
-            return <RoomView room={item} />;
+            return <RoomView key={item.id} room={item} />;
           })}
         </div>
       </div>
