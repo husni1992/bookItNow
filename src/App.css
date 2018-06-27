@@ -1,0 +1,117 @@
+.App {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  background-color: #f8fbfe;
+}
+
+.app-header {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  justify-content: flex-end;
+  background-color: #4039e3;
+  padding: 15px;
+  padding-left: 35px;
+  padding-right: 35px;
+  color: white;
+}
+
+.header-contact {
+  display: flex;
+  flex: 5;
+  align-items: center;
+  font-size: 12px;
+}
+
+.header-buttons-container {
+  display: flex;
+  font-size: 12px;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: "red"; 
+  flex: 1;
+}
+
+.menu-container {
+  display: flex;
+  background-color: #ffffff;
+  height: 70px;
+  box-shadow: 0 0 2px 0 #dae0ff;
+
+  flex-direction: row;
+  align-items: center;
+  padding-left: 35px;
+  padding-right: 35px;
+}
+
+.logo-name {
+  font-size: 25px;
+  font-weight: bolder;
+  color: #4039e3; 
+  font-family: 'Arial'
+}
+
+.row-break {
+  height: 30px;
+  width: 1px;
+  background-color: #dbddef;
+  margin: 20px 20px;
+}
+
+.search-icon {
+  width: 22px;
+  height: 22px;
+}
+
+.search-text {
+  font-size: 14px;
+  font-weight: bold;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.available-dates {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  font-weight: bold;
+  margin-left: 40px;
+}
+
+.month {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.date {
+  margin-left: 10px;
+  padding: 5px;
+  border: 1px solid #524ce6;
+  border-radius: 20px;
+}
+
+.btn-group1 {
+  display: flex;
+  flex-direction: row;
+  height: 100px;
+  align-items: center;
+  justify-content: flex-end;
+  width: 600px;
+}
+
+.btn {
+  width: 150px;
+  text-align: end;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.App-title {
+    font-size: 1.5em;
+}
+
+.App-intro {
+  font-size: large;
+}
