@@ -3,12 +3,11 @@
   max-height: 340px;
   padding: 20px;
   justify-content: center;
-  border: 1px solid grey;
 }
 
 .room-image {
-  max-width: 270px;
-  max-height: 200px;
+  width: 270px;
+  height: 200px;
   border-radius: 3px;
 }
 
