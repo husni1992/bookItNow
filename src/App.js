@@ -3,7 +3,7 @@ import logo from "./logo.svg";
 import "./App.css";
 import * as Api from "./services/Api";
 import searchIcon from "./assets/icons/search-icon.png";
-import RoomView from "./components/RoomView/RoomView";
+import RoomView from "./components/RoomView";
 import InfiniteScroll from "react-infinite-scroller";
 import { ScaleLoader } from 'react-spinners';
 const startIndex = 0;
