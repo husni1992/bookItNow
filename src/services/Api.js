@@ -15,8 +15,8 @@ export const authenticate = () => {
     });
 };
 
-export const getRoomsList = () => {
-  const responseObj = {
+export const getRoomsList = (startIndex, itemsCount) => {
+  const roomsListMockData = {
     data: [
       {
         address: {
@@ -2726,7 +2726,18 @@ export const getRoomsList = () => {
   };
   return new Promise(function(success) {
     setTimeout(function() {
-      success(responseObj);
-    }, 0);
+      const existingData = [...roomsListMockData.data];
+      const newArray = existingData.slice(startIndex, startIndex + itemsCount);
+      success(newArray);
+    }, startIndex > 0 ? 600 : 0);
   });
+
+  // not used the provided api because of the CORS issue
+  // return axios.get("https://test-api-2507.esanjo.net/hotels/v1/list")
+  //   .then(response => {
+  //     console.log("fetching ended", response);
+  //   })
+  //   .catch(error => {
+  //     console.log("fetching error", error);
+  //   });
 };

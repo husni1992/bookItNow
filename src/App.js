@@ -1,9 +1,13 @@
 import React, { Component } from "react";
 import logo from "./logo.svg";
 import "./App.css";
-import { authenticate, getRoomsList } from "./services/Api";
+import * as Api from "./services/Api";
 import searchIcon from "./assets/icons/search-icon.png";
 import RoomView from "./components/RoomView";
+import InfiniteScroll from "react-infinite-scroller";
+import { ScaleLoader } from 'react-spinners';
+const startIndex = 0;
+const itemsPerPage = 12;
 
 class App extends Component {
   state = {
@@ -11,10 +15,19 @@ class App extends Component {
   };
 
   componentDidMount() {
-    authenticate();
-    getRoomsList().then(response => {
-      if (response.data) {
-        this.setState({ roomList: response.data });
+    Api.authenticate();
+  }
+
+  loadMore(page) {
+    console.log(page);
+    const startIndex = this.state.roomList.length
+      ? this.state.roomList.length + 1
+      : 0;
+    Api.getRoomsList(startIndex, itemsPerPage).then(response => {
+      console.log(this.state.roomList);
+      const newArray = [...this.state.roomList, ...response];
+      if (response) {
+        this.setState({ roomList: newArray });
       }
     });
   }
@@ -28,6 +41,11 @@ class App extends Component {
   }
 
   render() {
+    let roomViewElementList = [];
+
+    this.state.roomList.map(item => {
+      roomViewElementList.push(<RoomView key={item.id} room={item} />);
+    });
     return (
       <div className="App">
         <div className="app-header">
@@ -76,10 +94,23 @@ class App extends Component {
             <div className="filter-btn">5+ Rating</div>
           </div>
         </div>
-        <div className="rooms-list-container">
-          {this.state.roomList.map(item => {
-            return <RoomView key={item.id} room={item} />;
-          })}
+        <div style={{ marginBottom: 20 }}>
+          <InfiniteScroll
+            className="rooms-list-container"
+            pageStart={0}
+            loadMore={this.loadMore.bind(this)}
+            hasMore={true || false}
+            // threshold={250}
+            useWindow={true}
+            loader={
+              <ScaleLoader
+                color={'#123abc'} 
+                loading={true} 
+              />
+            }
+          >
+            {roomViewElementList}
+          </InfiniteScroll>
         </div>
       </div>
     );
