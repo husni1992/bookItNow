@@ -5,7 +5,7 @@
   background-color: #f8fbfe;
 }
 
-.app-header {
+.app-header-container {
   display: flex;
   flex: 1;
   flex-direction: row;
@@ -142,6 +142,10 @@
 }
 
 .rooms-list-container {
+  margin-bottom: 20;
+}
+
+.rooms-list-infiniteScroll {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;

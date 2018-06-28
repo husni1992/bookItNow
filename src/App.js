@@ -19,12 +19,8 @@ class App extends Component {
   }
 
   loadMore(page) {
-    console.log(page);
-    const startIndex = this.state.roomList.length
-      ? this.state.roomList.length + 1
-      : 0;
+    const startIndex = this.state.roomList.length ? this.state.roomList.length + 1 : 0;
     Api.getRoomsList(startIndex, itemsPerPage).then(response => {
-      console.log(this.state.roomList);
       const newArray = [...this.state.roomList, ...response];
       if (response) {
         this.setState({ roomList: newArray });
@@ -48,7 +44,8 @@ class App extends Component {
 
     return (
       <div className="App">
-        <div className="app-header">
+
+        <div className="app-header-container">
           <div className="header-contact">
             Contact us directly at +971 (55) 895 8452 (Local time 22:19)
           </div>
@@ -87,20 +84,20 @@ class App extends Component {
           <div className="description-lite">
             Over 8,000 booing reviews in Dubai, with an average rating of 8.
           </div>
-          <div className="search-result-count">89 places found</div>
+          <div className="search-result-count">89 places found x</div>
           <div className="filter-btn-container">
             <div className="filter-btn">Great Deals</div>
             <div className="filter-btn">Near to Metro</div>
             <div className="filter-btn">5+ Rating</div>
           </div>
         </div>
-        <div style={{ marginBottom: 20 }}>
+
+        <div className="rooms-list-container">
           <InfiniteScroll
-            className="rooms-list-container"
+            className="rooms-list-infiniteScroll"
             pageStart={0}
             loadMore={this.loadMore.bind(this)}
             hasMore={true || false}
-            // threshold={250}
             useWindow={true}
             loader={
               <ScaleLoader
