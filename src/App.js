@@ -84,7 +84,7 @@ class App extends Component {
           <div className="description-lite">
             Over 8,000 booing reviews in Dubai, with an average rating of 8.
           </div>
-          <div className="search-result-count">89 places found x</div>
+          <div className="search-result-count">89 places found</div>
           <div className="filter-btn-container">
             <div className="filter-btn">Great Deals</div>
             <div className="filter-btn">Near to Metro</div>
