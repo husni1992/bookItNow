@@ -3,7 +3,7 @@ import logo from "./logo.svg";
 import "./App.css";
 import * as Api from "./services/Api";
 import searchIcon from "./assets/icons/search-icon.png";
-import RoomView from "./components/RoomView";
+import RoomView from "./components/RoomView/RoomView";
 import InfiniteScroll from "react-infinite-scroller";
 import { ScaleLoader } from 'react-spinners';
 const startIndex = 0;
@@ -41,11 +41,11 @@ class App extends Component {
   }
 
   render() {
-    let roomViewElementList = [];
-
+    let roomViewElementsList = [];
     this.state.roomList.map(item => {
-      roomViewElementList.push(<RoomView key={item.id} room={item} />);
+      roomViewElementsList.push(<RoomView key={item.id} room={item} />);
     });
+
     return (
       <div className="App">
         <div className="app-header">
@@ -109,7 +109,7 @@ class App extends Component {
               />
             }
           >
-            {roomViewElementList}
+            {roomViewElementsList}
           </InfiniteScroll>
         </div>
       </div>
