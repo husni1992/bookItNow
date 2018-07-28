@@ -5,29 +5,41 @@ import * as Api from "../../services/Api";
 import searchIcon from "../../assets/icons/search-icon.png";
 import RoomView from "../../components/RoomView";
 import InfiniteScroll from "react-infinite-scroller";
-import { ScaleLoader } from "react-spinners";
-const startIndex = 0;
+import { ScaleLoader, BeatLoader } from "react-spinners";
 const itemsPerPage = 12;
 
 class HomePage extends Component {
   state = {
+    authenticating: false,
+    isLoggedIn: null,
+    authToken: null,
+    currentPage: 1,
     roomList: []
   };
 
-  componentDidMount() {
-    Api.authenticate();
-  }
-
-  loadMore(page) {
-    const startIndex = this.state.roomList.length
-      ? this.state.roomList.length + 1
-      : 0;
-    Api.getRoomsList(startIndex, itemsPerPage).then(response => {
-      const newArray = [...this.state.roomList, ...response];
-      if (response) {
-        this.setState({ roomList: newArray });
+  async componentDidMount() {
+    await this.setState({
+      authenticating: true
+    });
+    Api.authenticate().then(response => {
+      if (response.data && response.data.token) {
+        this.setState({
+          authenticating: false,
+          isLoggedIn: true,
+          authToken: response.data.token
+        });
       }
     });
+  }
+
+  async loadMore(page) {
+    Api.getRoomsList({ page, records: itemsPerPage, authToken: this.state.authToken }).then(
+      response => {
+        this.setState({
+          roomList: [...this.state.roomList, ...response.data]
+        });
+      }
+    );
   }
 
   joinNow() {
@@ -38,12 +50,57 @@ class HomePage extends Component {
     alert("Guest SignIn");
   }
 
-  render() {
-    let roomViewElementsList = [];
-    this.state.roomList.map(item => {
-      roomViewElementsList.push(<RoomView key={item.id} room={item} />);
-    });
+  renderRoomListAndAuthDetails() {
+    if (this.state.authenticating === true) {
+      return (
+        <div
+          style={{
+            display: "flex",
+            flexDirection: 'column',
+            alignItems: "center",
+            justifyContent: "center"
+          }}
+        >
+          <p>Please wait while auhenticating.....</p>
+          <BeatLoader size={18} margin={"5px"} color={"#123abc"} loading={true} />
+        </div>
+      );
+    } else if (this.state.authenticating === false && this.state.isLoggedIn === false) {
+      return (
+        <div
+          style={{
+            display: "flex",
+            flexDirection: 'column',
+            alignItems: "center",
+            justifyContent: "center"
+          }}
+        >
+          <p>Authentication failed</p>
+        </div>
+      );
+    } else if (this.state.authenticating === false && this.state.isLoggedIn === true) {
+      const roomViewElementsList = [];
+      this.state.roomList.map(item => {
+        roomViewElementsList.push(<RoomView key={item.id} room={item} />);
+      });
+      return (
+        <div className="rooms-list-container">
+          <InfiniteScroll
+            className="rooms-list-infiniteScroll"
+            pageStart={0}
+            loadMore={this.loadMore.bind(this)}
+            hasMore={true || false}
+            useWindow={true}
+            loader={<ScaleLoader key={new Date().getTime()} color={"#123abc"} loading={true} />}
+          >
+            {roomViewElementsList}
+          </InfiniteScroll>
+        </div>
+      );
+    }
+  }
 
+  render() {
     return (
       <div className="App">
         <div className="app-header-container">
@@ -64,9 +121,7 @@ class HomePage extends Component {
           <div>
             <img src={searchIcon} className="search-icon" alt="search" />
           </div>
-          <span className="search-text">
-            Downtown Dubai, United Arab Emirates
-          </span>
+          <span className="search-text">Downtown Dubai, United Arab Emirates</span>
           <div className="available-dates">
             <span className="month">April</span>
             <span className="date">29</span>
@@ -92,25 +147,7 @@ class HomePage extends Component {
             <div className="filter-btn">5+ Rating</div>
           </div>
         </div>
-
-        <div className="rooms-list-container">
-          <InfiniteScroll
-            className="rooms-list-infiniteScroll"
-            pageStart={0}
-            loadMore={this.loadMore.bind(this)}
-            hasMore={true || false}
-            useWindow={true}
-            loader={
-              <ScaleLoader
-                key={new Date().getTime()}
-                color={"#123abc"}
-                loading={true}
-              />
-            }
-          >
-            {roomViewElementsList}
-          </InfiniteScroll>
-        </div>
+        {this.renderRoomListAndAuthDetails()}
       </div>
     );
   }
